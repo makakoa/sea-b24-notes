@@ -32,6 +32,10 @@ module.exports = function(app) {
 
       if ($scope.errors.length) return;
 
+      var encodedUser = {};
+      encodedUser[$base64.encode('email')] = $base64.encode($scope.newUser.email);
+      encodedUser[$base64.encode('password')] = $base64.encode($scope.newUser.password);
+
       $http({
         method: 'POST',
         url: 'api/users',
