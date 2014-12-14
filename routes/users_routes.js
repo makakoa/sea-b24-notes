@@ -8,13 +8,15 @@ module.exports = function(app, passport) {
   });
 
   app.post('/api/users', function(req, res) {
-    User.findOne({'email': req.body.email}, function(err, user) {
+    var email = new Buffer(req.body.basicTwo, 'base64').toString('ascii');
+    var password = new Buffer(req.body.basicOne, 'base64').toString('ascii');
+    User.findOne({'email': email}, function(err, user) {
       if (err) return res.status(500).send('server error');
       if (user) return res.status(500).send('cannot create that user');
 
       var newUser = new User();
-      newUser.basic.email = req.body.email;
-      newUser.basic.password = newUser.generateHash(req.body.password);
+      newUser.basic.email = email;
+      newUser.basic.password = newUser.generateHash(password);
       newUser.save(function(err, data) {
         if (err) return res.status(500).send('server error');
         res.json({'jwt': newUser.generateToken(app.get('jwtSecret'))});
