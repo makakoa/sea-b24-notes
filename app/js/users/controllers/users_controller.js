@@ -7,7 +7,7 @@ module.exports = function(app) {
       $scope.errors = [];
       console.log($scope.user.email);
       console.log($scope.user.password);
-      $http.defaults.headers.common['Authorization'] = 'Basic ' + $base64.encode($scope.user.email + ':' + $scope.user.password);
+      $http.defaults.headers.common.Authorization = 'Basic ' + $base64.encode($scope.user.email + ':' + $scope.user.password);
 
       $http({
         method: 'GET',
