@@ -38,7 +38,7 @@ module.exports = function(app) {
 
       $http({
         method: 'POST',
-        url: 'api/users',
+        url: '/api/users',
         data: encodedUser 
       })
       .success(function(data) {
