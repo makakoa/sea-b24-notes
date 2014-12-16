@@ -7,14 +7,13 @@ describe('UsersController', function() {
   var $controllerConstructor;
   var $httpBackend;
   var $scope;
-  var $cookies;
+  var $cookies = {};
 
   beforeEach(angular.mock.module('notesApp'));
 
-  beforeEach(angular.mock.inject(function($rootScope, $controller, $rootCookies) {
+  beforeEach(angular.mock.inject(function($rootScope, $controller) {
     $scope = $rootScope.$new();
     $controllerConstructor = $controller;
-    $cookies = $rootCookies;
   }));
 
   it('should be able to create a controller', function() {
@@ -23,9 +22,9 @@ describe('UsersController', function() {
   });
 
   describe('User routes', function() {
-    beforeEach(angular.mock.inject(function(_$httpBackend_, _$cookies_) {
+    beforeEach(angular.mock.inject(function(_$httpBackend_) {
       $httpBackend = _$httpBackend_;
-      $controllerConstructor('UsersCtrl', {$scope: $scope});
+      $controllerConstructor('UsersCtrl', {$scope: $scope, $cookies: $cookies});
     }));
 
     afterEach(function() {
