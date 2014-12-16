@@ -44,5 +44,15 @@ describe('UsersController', function() {
       expect($cookies.jwt).toBe('123');
     });
 
+    it('should log in a user', function() {
+      $httpBackend.expectGET('/api/users').respond(200, {jwt: '321'});
+      $scope.user = {
+        email: 'test@email',
+        password: 'testpass'
+      };
+      $scope.signIn();
+      $httpBackend.flush();
+      expect($cookies.jwt).toBe('321');
+    });
   });
 });
